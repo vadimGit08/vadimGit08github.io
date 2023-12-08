@@ -45,13 +45,5 @@ class SerglController extends Controller
         return redirect()->route('message.index');
     }
 
-    public function arr(){
-        $arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-        var_dump($arr);
-        for($i = 0; $i < count($arr); $i++){
-            echo "це значення: $i; <br>";
-        };
-    }
-
 
 }
