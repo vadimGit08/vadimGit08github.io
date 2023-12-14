@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('message');
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->index('category_id', 'category_index');
+            $table->foreign('category_id', 'category_fn')->on('categories')->references('id');
             $table->softDeletes();
             $table->timestamps();
         });

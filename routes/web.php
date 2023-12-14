@@ -16,6 +16,7 @@ use App\Http\Controllers\SerglController;
 Route::get('/', function () {
     return view('welcome');
 });
+//    *********CRUD**********
 Route::get('/message', [SerglController::class, 'index'])->name('message.index');
 Route::get('/message/create', [SerglController::class, 'create'])->name('message.create');
 Route::post('/message', [SerglController::class, 'store'])->name('message.store');
@@ -23,4 +24,7 @@ Route::get('/message/{sergl}', [SerglController::class, 'show'])->name('message.
 Route::get('/message/{sergl}/edit', [SerglController::class, 'edit'])->name('message.edit');
 Route::patch('/message/{sergl}', [SerglController::class, 'update'])->name('message.update');
 Route::delete('/message/{sergl}', [SerglController::class, 'destroy'])->name('message.destroy');
+//    *********CRUD**********
 
+Route::get('/oneToMany', [SerglController::class, 'oneToMany']);
+Route::get('/manyToMany', [SerglController::class, 'manyToMany']);
