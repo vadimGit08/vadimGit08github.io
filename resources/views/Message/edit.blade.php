@@ -1,4 +1,4 @@
-@extends('home/home')
+@extends('posts/home/home')
 @section('mes')
     <div class="container" style="margin-top: 30px">
         <form action="{{ route('message.update', $sergl->id) }}" method="post">
@@ -22,6 +22,22 @@
                             {{ $category->title }}
                         </option>
                     @endforeach
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Set cars</label>
+                <select class="form-select" multiple aria-label="Multiple select example" name="tags[]">
+                    @foreach($tags as $tag)
+                        <option
+                            @foreach($sergl->tags as $sergTag)
+                                {{ $tag->id === $sergTag->id ? 'selected' : '' }}
+                            @endforeach
+
+                            value="{{ $tag->id }}">
+                            {{ $tag->title }}
+                        </option>
+                    @endforeach
+                    <option value="3"></option>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">update</button>

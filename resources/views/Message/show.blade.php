@@ -1,4 +1,4 @@
-@extends('home/home')
+@extends('posts/home/home')
 @section('mes')
     <div class="container">
         <h2>Message</h2>
