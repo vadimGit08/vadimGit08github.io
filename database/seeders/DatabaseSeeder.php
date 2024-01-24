@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Category;
+use App\Models\Sergl;
+use App\Models\Tag;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +15,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $categories = Category::factory(20)->create();
+        $tags = Tag::factory(15)->create();
+        $sergls = Sergl::factory(50)->create();
+
+        foreach ($sergls as $sergl){
+            $tagsId = $tags->random(5)->pluck('id');
+            $sergl->tags()->attach($tagsId);
+        }
+
+
+
+
     }
 }

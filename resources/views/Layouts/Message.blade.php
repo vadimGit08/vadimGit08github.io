@@ -27,20 +27,29 @@
                         <a class="btn btn-lg btn-warning me-2" role="button" style="color: #0e2f4b;" href="{{ route('message.create') }}">add messag</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="btn btn-light btn-lg dropdown-toggle" href="#" role="button"
-                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #0e2f4b;" v-pre>
-                            {{ Auth::user()->name }}
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                        <div class="dropdown">
+                            <a id="dropdownMenuLink" class="btn btn-light btn-lg dropdown-toggle" href="#" role="button"
+                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                               style="color: #0e2f4b;" v-pre>
+                                {{ Auth::user()->name }}
                             </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+                                @can('view', auth()->user())
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('admin.message.index') }}">Admin</a>
+                                    </li>
+                                @endcan
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
+                            </ul>
                         </div>
                     </li>
                 </ul>

@@ -1,18 +1,21 @@
-@extends('posts/home/home')
+@extends('Layouts.Message')
 @section('mes')
-    <div class="container" style="margin-top: 30px">
+    <div class="container"
+         style="background-color: #fdc13d; padding: 30px 30px 30px 30px; margin: 20px 20px 20px 20px; border-radius: 20px">
         <form action="{{ route('message.store') }}" method="post">
             @csrf
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Name sender</label>
-                <input value="{{ old('name') }}" autocomplete="off" class="form-control" id="exampleFormControlInput1" name="name" placeholder="name recipient">
+                <input value="{{ old('name') }}" autocomplete="off" class="form-control" id="exampleFormControlInput1"
+                       name="name" placeholder="name recipient">
                 @error("name")
                 <p style="color: red">{{ $message }}</p>
                 @enderror
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Add message</label>
-                <textarea value="{{ old('message') }}" class="form-control" id="exampleFormControlTextarea1" name="message" rows="3"></textarea>
+                <textarea value="{{ old('message') }}" class="form-control" id="exampleFormControlTextarea1"
+                          name="message" rows="3"></textarea>
                 @error("message")
                 <p style="color: red">{{ $message }}</p>
                 @enderror
@@ -31,7 +34,7 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Set cars</label>
+                <label for="exampleFormControlInput1" class="form-label">Set tags</label><br>
                 <select class="form-select" multiple aria-label="Multiple select example" name="tags[]">
                     @foreach($tags as $tag)
                         <option
