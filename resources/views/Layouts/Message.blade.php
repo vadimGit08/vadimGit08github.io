@@ -30,7 +30,7 @@
                         <div class="dropdown">
                             <a id="dropdownMenuLink" class="btn btn-light btn-lg dropdown-toggle" href="#" role="button"
                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                               style="color: #0e2f4b;" v-pre>
+                               style="color: #0e2f4b;">
                                 {{ Auth::user()->name }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">

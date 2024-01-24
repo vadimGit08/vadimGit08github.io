@@ -14,7 +14,7 @@
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Add message</label>
-                <textarea value="{{ old('message') }}" class="form-control" id="exampleFormControlTextarea1"
+                <textarea class="form-control" value="{{ old('message') }}" id="exampleFormControlTextarea1"
                           name="message" rows="3"></textarea>
                 @error("message")
                 <p style="color: red">{{ $message }}</p>
