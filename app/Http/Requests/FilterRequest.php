@@ -22,10 +22,7 @@ class FilterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'message' => 'required|string',
-            'category_id' => '',
-            'tags' => '',
+            'name' => '',
             'page' => '',
             'per_page' => ''
         ];
