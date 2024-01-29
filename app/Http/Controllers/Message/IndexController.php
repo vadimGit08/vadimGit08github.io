@@ -13,11 +13,12 @@ class IndexController extends MessageController
 {
     public function __invoke(FilterRequest $request, ProductFilter $filter)
     {
+        $page = $request['page'];
         $perPage = $request['per_page'];
         $messages = Sergl::filter($filter)->paginate($perPage, ['*'], 'page', $page);
 
-        return MessageResourse::collection($messages);
+//        return MessageResourse::collection($messages);
 
-//        return view('message.index', compact('messages'));
+        return view('message.index', compact('messages'));
     }
 }
