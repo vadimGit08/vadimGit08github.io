@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\Message;
 
-use App\Http\Controllers\Controller;
+use App\Http\Resources\Message\MessageResourse;
 use App\Models\Category;
 use App\Models\Sergl;
 
 class ShowController extends MessageController
 {
-    public function __invoke(Sergl $sergl): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function __invoke(Sergl $sergl): MessageResourse
     {
-        $categories = Category::all();
-        return view('message.show', compact('sergl', 'categories'));
+//        $categories = Category::all();
+
+        return  new MessageResourse($sergl);
+
+//        return view('message.show', compact('sergl', 'categories'));
     }
 
 

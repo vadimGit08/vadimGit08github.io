@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Message;
 
+use App\Http\Resources\Category\CategoryResource;
+use App\Http\Resources\Tag\TagResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,7 +20,8 @@ class MessageResourse extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'messsage'=> $this->message,
-            'category_id'=> $this->category_id,
+            'category'=> new CategoryResource($this->category),
+            'tags'=> TagResource::collection($this->tags)
         ];
     }
 }

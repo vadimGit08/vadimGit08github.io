@@ -24,7 +24,7 @@ class UpdateRequest extends FormRequest
         return [
             'name' => 'required|string',
             'message' => 'required|string',
-            'category_id' => '',
+            'category' => '',
             'tags' => ''
         ];
     }

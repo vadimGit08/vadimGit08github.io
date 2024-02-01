@@ -2,26 +2,109 @@
 
 namespace App\Service\Message;
 
+use App\Models\Category;
 use App\Models\Sergl;
+use App\Models\Tag;
+use Illuminate\Support\Facades\DB;
+use Mockery\Exception;
+
 
 class Service
 {
-   public function store($message){
-       $user = $message['tags'];
-       unset($message['tags']);
+   public function store($data){
+       try {
+           DB::beginTransaction();
 
-       $post = Sergl::create($message);
+           $tags = $data['tags'];
+           $category = $data['category'];
 
-       $post->tags()->attach($user);
+           unset($data['tags'], $data['category']);
 
+           $tagIds = $this->getTagIds($tags);
+           $data['category_id'] = $this->getCategoryId($category);
+
+           $post = Sergl::create($data);
+
+           $post->tags()->attach($tagIds);
+
+           DB::commit();
+       } catch (\Exception $exception) {
+
+           DB::rollBack();
+
+           $exception->getMessage();
+       };
        return $post;
    }
 
-    public function update($sergl, $message){
-        $user = $message['tags'];
-        unset($message['tags']);
-        $sergl->update($message);
-        $sergl->tags()->sync($user);
+    private function getCategoryId($item)
+    {
+        $category = !isset($item['id']) ? Category::create($item) : Category::find($item['id']);
+        return $category->id;
     }
 
+    private function getTagIds($tags)
+    {
+        $tagIds = [];
+        foreach ($tags as $tag){
+            $tag = !isset($tag['id']) ? Tag::create($tag) : Tag::find($tag['id']);
+            $tagIds[] = $tag->id;
+        }
+        return $tagIds;
+    }
+
+
+    public function update($sergl, $data)
+    {
+        try {
+            DB::beginTransaction();
+
+            $tags = $data['tags'];
+            $category = $data['category'];
+
+            unset($data['tags'], $data['category']);
+
+            $tagIds = $this->getTagIdsWithUpdate($tags);
+            $data['category_id'] = $this->getCategoryIdWithUpdate($category);
+
+            $sergl->update($data);
+            $sergl->tags()->sync($tagIds);
+
+            DB::commit();
+        } catch (\Exception $exception) {
+
+            DB::rollBack();
+
+            dd($exception->getMessage());
+        };
+        return $sergl->fresh();
+    }
+
+    private function getCategoryIdWithUpdate($item)
+    {
+        if (!isset($item['id'])) {
+            $category = Category::create($item);
+        } else {
+            $category = Category::find($item['id']);
+            $category->update($item);
+            $category = $category->fresh();
+        }
+        return $category->id;
+    }
+
+    private function getTagIdsWithUpdate ($tags)
+    {
+        $tagIds = [];
+        foreach ($tags as $tag){
+            if (!isset($tag['id'])) {
+                $tag = Tag::create($tag);
+            } else {
+                $currentTag = Tag::find($tag['id']);
+                $currentTag->update($tag);
+                $tag = $currentTag->fresh();
+            }
+            $tagIds[] = $tag->id;
+        }
+        return $tagIds;
+    }
 }

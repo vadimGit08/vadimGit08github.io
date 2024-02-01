@@ -33,11 +33,11 @@ Route::group([
 });
 
 Route::group(['namespace' => 'message', 'middleware' => 'jwt.auth'], function (){
-    Route::get('/message', [\App\Http\Controllers\Message\IndexController::class, '__invoke'])->name('message.index');
-    Route::get('/message/create', [\App\Http\Controllers\Message\CreateController::class, '__invoke'])->name('message.create');
-    Route::post('/message', [\App\Http\Controllers\Message\StoreController::class, '__invoke'])->name('message.store');
-    Route::get('/message/{sergl}', [\App\Http\Controllers\Message\ShowController::class, '__invoke'])->name('message.show');
-    Route::get('/message/{sergl}/edit', [\App\Http\Controllers\Message\EditController::class, '__invoke'])->name('message.edit');
-    Route::patch('/message/{sergl}', [\App\Http\Controllers\Message\UpdateController::class, '__invoke'])->name('message.update');
-    Route::delete('/message/{sergl}', [\App\Http\Controllers\Message\DestroyController::class, '__invoke'])->name('message.destroy');
+    Route::get('/message', [\App\Http\Controllers\Message\IndexController::class, '__invoke']);
+    Route::get('/message/create', [\App\Http\Controllers\Message\CreateController::class, '__invoke']);
+    Route::post('/message', [\App\Http\Controllers\Message\StoreController::class, '__invoke']);
+    Route::get('/message/{sergl}', [\App\Http\Controllers\Message\ShowController::class, '__invoke']);
+    Route::get('/message/{sergl}/edit', [\App\Http\Controllers\Message\EditController::class, '__invoke']);
+    Route::patch('/message/{sergl}', [\App\Http\Controllers\Message\UpdateController::class, '__invoke']);
+    Route::delete('/message/{sergl}', [\App\Http\Controllers\Message\DestroyController::class, '__invoke']);
 });
